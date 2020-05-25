@@ -1,6 +1,5 @@
 package com.mybank.gui;
 
-import com.mybank.domain.Account;
 import com.mybank.domain.Bank;
 import com.mybank.domain.CheckingAccount;
 import com.mybank.domain.Customer;
@@ -10,11 +9,16 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import com.mybank.data.DataSource;
+import com.mybank.domain.Account;
+
 
 /**
  *
@@ -29,7 +33,7 @@ public class SWINGDemo {
     
     public SWINGDemo() {
         log = new JEditorPane("text/html", "");
-        log.setPreferredSize(new Dimension(250, 360));
+        log.setPreferredSize(new Dimension(250, 560));
         show = new JButton("Show");
         report = new JButton("Report");
         clients = new JComboBox();
@@ -96,16 +100,16 @@ public class SWINGDemo {
         frame.setVisible(true);        
     }
     
-    public static void main(String[] args) {
+    @SuppressWarnings("empty-statement")
+    public static void main(String[] args) throws IOException {
         
-        Bank.addCustomer("John", "Doe");
-        Bank.addCustomer("Fox", "Mulder");
-        Bank.addCustomer("Dana", "Scully");
-        Bank.getCustomer(0).addAccount(new CheckingAccount(2000));
-        Bank.getCustomer(1).addAccount(new SavingsAccount(1000, 3));
-        Bank.getCustomer(2).addAccount(new CheckingAccount(1000, 500));
+       DataSource dataSource = new DataSource("data/test.dat");
         
+        
+            dataSource.loadData();
+           
         SWINGDemo demo = new SWINGDemo();        
         demo.launchFrame();
+         
     }
 }
